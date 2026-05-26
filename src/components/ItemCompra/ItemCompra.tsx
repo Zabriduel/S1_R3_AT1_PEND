@@ -9,7 +9,7 @@ interface ItemCompraProps {
 export function ItemCompra({ item, onRemove }: ItemCompraProps) {
     return (
         <div className="item">
-            <h3>{item.name} - {item.quantidade} </h3>
+            <h3>{item.id}.{item.name} - Quantidade: {item.quantidade} </h3>
             <button onClick={() => onRemove(item.id)}>Remover</button>
         </div>
     );
