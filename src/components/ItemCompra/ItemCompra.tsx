@@ -1,11 +1,12 @@
 import type { Items } from "../../interface/Items";
+import './ItemCompra.css'
 
 interface ItemCompraProps {
     item: Items;
     onRemove: (id: number) => void;
 }
 
-export function ItemCompraProps({ item, onRemove }: ItemCompraProps) {
+export function ItemCompra({ item, onRemove }: ItemCompraProps) {
     return (
         <div className="item">
             <h3>{item.name} - {item.quantidade} </h3>

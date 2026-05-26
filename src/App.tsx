@@ -1,24 +1,19 @@
 import { useState } from 'react'
 import './App.css'
 
+
 import type { Items } from './interface/Items';
+import { FormularioAdicao } from './components/FormularioAdicao/FormularioAdicao';
+import { ItemCompra } from './components/ItemCompra/ItemCompra';
+
 var idProduto = 1;
 function App() {
-
-  const [nameInput, setNameInput] = useState('');
-  const [quantidadeInput, setQuantidadeInput] = useState<number | ''>('');
   const [items, setItems] = useState<Items[]>([]);
 
-  function handleAddItem() {
-    if (nameInput.trim() === '' || quantidadeInput === '' || quantidadeInput <= 0)
-      return
-
-    const novoItem = { id: idProduto, name: nameInput, quantidade: quantidadeInput }
+ function handleAddItem(name: string, quantidade: number | '') {
+    const novoItem = { id: idProduto, name, quantidade: Number(quantidade) };
     setItems([...items, novoItem]);
-
     idProduto++;
-    setNameInput('');
-    setQuantidadeInput('');
   }
 
   function handleRemove(id: number) {
@@ -26,23 +21,24 @@ function App() {
     setItems(updateCart);
   }
 
-  return (
+   return (
     <div className='container'>
       <h1>Lista de Compra</h1>
-      <input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-      <input type="number" value={quantidadeInput} onChange={(e) => setQuantidadeInput(e.target.value === '' ? '' : Number(e.target.value))} />
-      <button onClick={handleAddItem}>Adicionar</button>
+      
+      <FormularioAdicao onAdd={handleAddItem} />
 
       <div>
         {items.map((item) => (
-          <div className='item'>
-            <h3>{item.name} -  {item.quantidade} </h3>
-            <button onClick={() => handleRemove(item.id)}>Remover</button>
-          </div>
+          <ItemCompra 
+            key={item.id} 
+            item={item} 
+            onRemove={handleRemove} 
+          />
         ))}
       </div>
-    </div >
-  )
+    </div>
+  );
 }
+
 
 export default App

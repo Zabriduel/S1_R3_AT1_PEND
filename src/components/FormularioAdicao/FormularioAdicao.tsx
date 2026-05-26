@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './FormularioAdicao.css'
 
 interface FormularioAdicaoProps {
     onAdd: (name: string, quantidade: number | '') => void;
@@ -9,13 +10,14 @@ export function FormularioAdicao({ onAdd }: FormularioAdicaoProps) {
     const [quantidadeInput, setQuantidadeInput] = useState<number | ''>('');
 
     function handleAddItem() {
-        if (nameInput.trim() === '' || quantidadeInput === '' || quantidadeInput <= 0) { return; }
+        if (nameInput.trim() === '' || quantidadeInput === '' || quantidadeInput <= 0) {
+            return;
+        }
+
+        onAdd(nameInput, quantidadeInput);
+        setNameInput('');
+        setQuantidadeInput('');
     }
-
-    onAdd(nameInput, quantidadeInput);
-
-    setNameInput('');
-    setQuantidadeInput('');
 
     return (
         <div className="formulario">
